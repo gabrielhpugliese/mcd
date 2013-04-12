@@ -5,7 +5,7 @@ Template.people.profile = function (userId) {
 Template.people.list = function () {
     var query = {
             numbers : { $in : Session.get('search_numbers') },
-            // owner : { $not : Meteor.userId() }
+            owner : { $not : Meteor.userId() }
         },
         filters = Session.get('filters');
     

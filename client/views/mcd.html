@@ -109,8 +109,9 @@
 	        <h1>
 	            Procurar selos
 	        </h1>
+	        <p>Faça a busca apenas uma vez que a lista se atualizará sozinha.</p>
 	        <div id="search" class="input-append">
-	            <input type="text" name="number" value="700,701">
+	            <input type="text" class="input-xlarge" name="number" value="700,701,702,703,704,705,706,707,708,709,710,711,712,713,714,715,716,717,718,719,720,721,722,723">
 	            <button class="btn"><i class="icon-search"></i></button>
 	        </div>
 	    </div>
@@ -151,7 +152,7 @@
 	            {{#each list}}
 	                <li>
 	                {{#with profile owner}}
-	                    <a href="https://www.facebook.com/{{this.uid}}" target="_blank"><h2><img src="http://graph.facebook.com/{{this.uid}}/picture?type=square" />{{this.name}}</h2></a>
+	                    <h2><img src="http://graph.facebook.com/{{this.uid}}/picture?type=square" /><a href="https://www.facebook.com/{{this.uid}}" target="_blank">{{this.name}}</a></h2>
 	                    <p>Estado: {{this.state}} - Cidade: {{this.city}}</p>
 	                {{/with}}
 	                <p>Tem os selos: {{numbers}}</p>
