@@ -59,9 +59,10 @@ Template.profile.events({
         Meteor.call('save_profile', state, city, function (error, result) {
             if (error)
                 console.log(error);
-            else
+            else{
                 $('.alert').show();
                 $('.alert p').text('Localização salva com sucesso.');
+            }
         });
     }
 });

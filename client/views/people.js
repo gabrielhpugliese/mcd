@@ -5,7 +5,7 @@ Template.people.profile = function (userId) {
 Template.people.list = function () {
     var query = {
             numbers : { $in : Session.get('search_numbers') },
-            owner : { $not : Meteor.userId() }
+            // owner : { $not : Meteor.userId() }
         },
         filters = Session.get('filters');
     
@@ -17,20 +17,20 @@ Template.people.list = function () {
     return Numbers.find(query);
 }
 
-Deps.autorun(function () {
-    var filters = Session.get('filters');
-    
-    if ( filters ) {
-        window.onload = function() {
-            new dgCidadesEstados({
-                estado: $('#locale-filter .state').get(0),
-                cidade: $('#locale-filter .city').get(0),
-                estadoVal : filters.state,
-                cidadeVal : filters.city
-            });
-        }
-    } 
-});
+// Deps.autorun(function () {
+    // var filters = Session.get('filters');
+//     
+    // if ( filters ) {
+        // window.onload = function() {
+            // new dgCidadesEstados({
+                // estado: $('#locale-filter .state').get(0),
+                // cidade: $('#locale-filter .city').get(0),
+                // estadoVal : filters.state,
+                // cidadeVal : filters.city
+            // });
+        // }
+    // } 
+// });
 
 Template.people.events({
     'click #search button' : function (event) {
@@ -49,6 +49,27 @@ Template.people.events({
         
         Session.set('filters', { state : state , city : city });
     },
+    'click #send-msg' : function (event) {
+        var $self = $(event.target),
+            userId = $self.parent().attr('id');
+        
+        Session.set('msg_user_id', userId);
+        $('#betaModal').modal();
+    },
+    'click #betaModal button' : function (event) {
+        event.preventDefault();
+        
+        Meteor.call('send_msg', Session.get('msg_user_id'), $('#betaModal textarea').val(), function (error, result) {
+            if (error)
+                console.log(error);
+            else {
+                $('#betaModal').modal('hide');
+                $('.alert').show();
+                $('.alert p').text('Mensagem enviada com sucesso.');
+            }
+        });
+        
+    }
     // 'click #remove_filter' : function (event) {
         // event.preventDefault();
 //         

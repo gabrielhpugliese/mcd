@@ -30,5 +30,19 @@ Meteor.methods({
                     city: city
                 }
             });
+    },
+    'send_msg' : function (userId, msg) {
+        var sender = Meteor.users.findOne(Meteor.userId()),
+            receipt = Meteor.users.findOne(userId);
+        
+        console.log(sender)
+        console.log(receipt)
+        console.log(userId)
+        Email.send({
+            from: sender.services.facebook.email,
+            to: receipt.services.facebook.email,
+            subject: sender.profile.name + ' te enviou uma mensagem sobre selos do MCD!',
+            text: msg
+        });
     }
 });
