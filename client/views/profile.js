@@ -71,6 +71,7 @@ Template.profile.events({
         var $self = $(event.target),
             number = $self.text();
 
+
         Meteor.call('insert_number', number, function (error, result) {
             if (error)
                 console.log(error);
