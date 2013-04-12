@@ -1,0 +1,80 @@
+<head>
+    <title>mcd</title>
+</head>
+
+<body>
+    <div class="container">
+
+        {{> template}}
+        <!-- Begin BidVertiser code -->
+         {{#constant}}
+<SCRIPT LANGUAGE="JavaScript1.1" SRC="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=526217&bid=1311528" type="text/javascript"></SCRIPT>
+<noscript><a href="http://www.bidvertiser.com/bdv/BidVertiser/bdv_xml_feed.dbm">xml search</a></noscript>
+{{/constant}}
+<!-- End BidVertiser code -->
+        {{#if currentUser}}
+        {{> profile}}
+        {{> people}}
+        {{else}}
+        <div class="hero-unit">
+            <p>Utilizando este site você poderá achar outras pessoas que precisam de números do MCD.</p>
+        </div>
+        {{/if}}
+    </div>
+</body>
+
+<template name="template">
+    <div class="navbar" id="top-navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#"> Troque selos do MCD</a>
+            <ul class="nav"></ul>
+            <ul class="nav pull-right">
+                <li>
+                    {{loginButtons}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</template>
+
+<template name="profile">
+    <div>
+        <p>
+            Procuro por estes selos:
+        </p>
+        <ul>
+            {{#each numbers}}
+            <li>
+                <button class="number btn {{class}}">
+                    {{val}}
+                </button>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</template>
+
+<template name="people">
+    <div>
+        <p>
+            Procurar pessoas com o selo:
+        </p>
+        <div id="search" class="input-append">
+            <input type="text" name="number" value="700,701">
+            <button class="btn"><i class="icon-search"></i></button>
+        </div>
+    </div>
+
+    <div id="people-list">
+        <ul>
+            {{#each list}}
+                <li>
+                {{#with profile owner}}
+                    <a href="https://www.facebook.com/{{this.uid}}" target="_blank"><h2><img src="http://graph.facebook.com/{{this.uid}}/picture?type=square" />{{this.name}}</h2></a>
+                {{/with}}
+                Quer trocar: {{numbers}}
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+</template>

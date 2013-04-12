@@ -1,0 +1,18 @@
+/* CSS declarations go here */
+#login-buttons .login-display-name {
+    line-height: 2;
+}
+
+#login-buttons {
+    line-height: 38px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+ul li {
+    display: inline;
+}
