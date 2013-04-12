@@ -20,5 +20,15 @@ Meteor.methods({
             } , {
                 $pull : { numbers : number }
             });
+    },
+    'save_profile' : function (state, city) {
+        return Profiles.update({
+                owner : Meteor.userId()
+            } , {
+                $set : {
+                    state : state,
+                    city: city
+                }
+            });
     }
 });

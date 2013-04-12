@@ -1,3 +1,17 @@
+Template.profile.rendered = function () {
+    if ( Session.get('profilesLoading') )
+        return;
+        
+    var profile = Profiles.findOne({ owner : Meteor.userId() });
+    
+    new dgCidadesEstados({
+        estado: document.getElementById('state'),
+        cidade: document.getElementById('city'),
+        estadoVal : profile.state,
+        cidadeVal : profile.city
+    });
+}
+
 Template.profile.numbers = function () {
     var numbers = [],
         myNumbers = Numbers.find({ owner : Meteor.userId() }).fetch();
@@ -14,6 +28,7 @@ Template.profile.numbers = function () {
 
     return numbers;
 }
+
 
 Template.profile.events({
     'click button.number:not(.active)' : function (event) {
@@ -32,6 +47,19 @@ Template.profile.events({
         Meteor.call('remove_number', number, function (error, result) {
             if (error)
                 console.log(error);
+        });
+    },
+    'click #save_location' : function (event) {
+        event.preventDefault();
+        var state = $('#state').val(),
+            city = $('#city').val();
+            
+        Meteor.call('save_profile', state, city, function (error, result) {
+            if (error)
+                console.log(error);
+            else
+                $('.alert').show();
+                $('.alert p').text('Localização salva com sucesso.');
         });
     }
 });
