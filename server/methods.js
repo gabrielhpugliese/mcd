@@ -34,10 +34,7 @@ Meteor.methods({
     'send_msg' : function (userId, msg) {
         var sender = Meteor.user(),
             receipt = Meteor.users.findOne(userId);
-        
-        console.log(sender)
-        console.log(receipt)
-        console.log(userId)
+
         Email.send({
             from: sender.services.facebook.email,
             to: receipt.services.facebook.email,

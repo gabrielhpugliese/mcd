@@ -8,18 +8,18 @@ Template.people.list = function () {
             // owner : { $not : Meteor.userId() }
         },
         filters = Session.get('filters');
-    
+
     if ( filters ) {
         query['state'] = filters.state;
-        query['city'] = filters.city;     
+        query['city'] = filters.city;
     }
-    
+
     return Numbers.find(query);
 }
 
 // Deps.autorun(function () {
     // var filters = Session.get('filters');
-//     
+//
     // if ( filters ) {
         // window.onload = function() {
             // new dgCidadesEstados({
@@ -29,7 +29,7 @@ Template.people.list = function () {
                 // cidadeVal : filters.city
             // });
         // }
-    // } 
+    // }
 // });
 
 Template.people.events({
@@ -46,19 +46,20 @@ Template.people.events({
         event.preventDefault();
         var state = $('#locale-filter .state').val(),
             city = $('#locale-filter .city').val();
-        
+
         Session.set('filters', { state : state , city : city });
     },
     'click .send-msg' : function (event) {
         var $self = $(event.target),
             userId = $self.parent().attr('id');
-        
+
         Session.set('msg_user_id', userId);
+        Deps.flush();
         $('#betaModal').modal();
     },
     'click #betaModal button' : function (event) {
         event.preventDefault();
-        
+
         Meteor.call('send_msg', Session.get('msg_user_id'), $('#betaModal textarea').val(), function (error, result) {
             if (error)
                 console.log(error);
@@ -68,18 +69,18 @@ Template.people.events({
                 $('.alert p').text('Mensagem enviada com sucesso.');
             }
         });
-        
+
     }
     // 'click #remove_filter' : function (event) {
         // event.preventDefault();
-//         
+//
         // $('#remove_filter').hide();
         // $('#restore_filter').show();
         // Session.set('filters', {});
     // },
     // 'click #restore_filter' : function (event) {
         // event.preventDefault();
-//         
+//
         // var profile = Profiles.findOne({ owner : Meteor.userId() });
         // Session.set('filters', { state : profile.state, city : profile.city });
         // $('#restore_filter').hide();
