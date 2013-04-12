@@ -1,6 +1,15 @@
 <head>
     <title>Troca de selos do MCD</title>
     <script type="text/javascript" src="http://cidades-estados-js.googlecode.com/files/cidades-estados-1.2-utf8.js"></script>
+    <style>
+    	.center { float: none; margin-left: auto; margin-right: auto; }
+    	.form-horizontal .controls {
+		  margin-left: 100px;
+		}
+		.form-horizontal .control-label {
+			width: auto;
+		}
+    </style>
 </head>
 
 <body>
@@ -11,18 +20,23 @@
 		  <button type="button" class="close" data-dismiss="alert">&times;</button>
 		  <p></p>
 		</div>
-        {{#constant}}
-		<iframe src="/bidvertiser.html" style="width: 100%; overflow: hidden;" frameborder="0" scrolling="no"></iframe>
-		{{/constant}}
-        {{#if currentUser}}
-        {{> profile}}
-        <hr/>
-        {{> people}}
-        {{else}}
-        <div class="hero-unit">
-            <p>Utilizando este site você pode procurar por pessoas que tenham o selo que você precisa e compartilhar seus selos.</p>
-        </div>
-        {{/if}}
+		<div class="row">
+			<div class="span8 center">
+		        {{#constant}}
+				<iframe src="/bidvertiser.html" style="width: 100%; overflow: hidden;" frameborder="0" scrolling="no"></iframe>
+				{{/constant}}
+				
+		        {{#if currentUser}}
+		        {{> profile}}
+		        <hr/>
+		        {{> people}}
+		        {{else}}
+		        <div class="hero-unit">
+		            <p>Utilizando este site você pode procurar por pessoas que tenham o selo que você precisa e compartilhar seus selos.</p>
+		        </div>
+		        {{/if}}
+			</div>
+		</div>
     </div>
 </body>
 
@@ -41,71 +55,111 @@
 </template>
 
 <template name="profile">
-    <div>
-        <p>
-            Meus selos:
-        </p>
-        <ul>
-            {{#each numbers}}
-            <li>
-                <button class="number btn {{class}}">
-                    {{val}}
-                </button>
-            </li>
-            {{/each}}
-        </ul>
-        <br/>
-		<form class="form-horizontal">
-			<fieldset>
-			<div class="control-group">
-			  <label class="control-label">Meu estado:</label>
-			  <div class="controls">
-			    <select id="state" name="state"></select> 
-			  </div>
-			</div>
-			
-			<div class="control-group">
-			  <label class="control-label">Minha cidade:</label>
-			  <div class="controls">
-			    <select id="city" name="city"></select>
-			  </div>
-			</div>
-			<div class="control-group">
-			  <div class="controls">
-			    <button id="save_location" name="save_location" class="btn btn-primary">Salvar</button>
-			  </div>
-			</div>
-			
-			</fieldset>
-		</form>
-
-    </div>
+	<div class="row">
+		
+	    <div class="span4">
+	        <h1>
+	            Meus selos
+	        </h1>
+	        <ul>
+	            {{#each numbers}}
+	            <li>
+	                <button class="number btn {{class}}">
+	                    {{val}}
+	                </button>
+	            </li>
+	            {{/each}}
+	        </ul>
+	    </div>
+	    <div class="span4">
+	    	<h1>
+                Minha localização
+            </h1>
+			<form id="my-locale" class="form-horizontal">
+				<fieldset>
+				<div class="control-group">
+				  <label class="control-label">Meu estado:</label>
+				  <div class="controls">
+				    <select class="state" name="state"></select> 
+				  </div>
+				</div>
+				
+				<div class="control-group">
+				  <label class="control-label">Minha cidade:</label>
+				  <div class="controls">
+				    <select class="city" name="city"></select>
+				  </div>
+				</div>
+				<div class="control-group">
+				  <div class="controls">
+				    <button id="save_location" name="save_location" class="btn btn-primary">Salvar</button>
+				  </div>
+				</div>
+				
+				</fieldset>
+			</form>
+	
+	    </div>
+	</div>
 </template>
 
 <template name="people">
-    <div>
-        <p>
-            Procurar pessoas com o selo:
-        </p>
-        <div id="search" class="input-append">
-            <input type="text" name="number" value="700,701">
-            <button class="btn"><i class="icon-search"></i></button>
-        </div>
+	<div class="row">
+	    <div class="span4">
+	        <h1>
+	            Procurar selos
+	        </h1>
+	        <div id="search" class="input-append">
+	            <input type="text" name="number" value="700,701">
+	            <button class="btn"><i class="icon-search"></i></button>
+	        </div>
+	    </div>
+	    <!-- <div class="span4">
+	    	<h1>Filtro por localização</h1>
+	    	<form id="locale-filter" class="form-horizontal">
+                <fieldset>
+                <div class="control-group">
+                  <label class="control-label">Estado:</label>
+                  <div class="controls">
+                    <select class="state" name="state"></select> 
+                  </div>
+                </div>
+                
+                <div class="control-group">
+                  <label class="control-label">Cidade:</label>
+                  <div class="controls">
+                    <select class="city" name="city"></select>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <div class="controls">
+                    <button id="apply_filter" class="btn btn-primary">Filtrar</button>
+                  	<button id="remove_filter" class="btn btn-danger">Remover filtros</button>
+                  	<button id="restore_filter" class="btn btn-success" style="display: none;">Restaurar filtros</button>
+                  </div>
+                </div>
+                
+                </fieldset>
+            </form>
+	    </div> -->
     </div>
-
-    <div id="people-list">
-        <ul>
-            {{#each list}}
-                <li>
-                {{#with profile owner}}
-                    <a href="https://www.facebook.com/{{this.uid}}" target="_blank"><h2><img src="http://graph.facebook.com/{{this.uid}}/picture?type=square" />{{this.name}}</h2></a>
-                    <p>Estado: {{this.state}} - Cidade: {{this.city}}</p>
-                {{/with}}
-                <p>Tem os selos: {{numbers}}</p>
-                </li>
-            {{else}}
-                Ninguém cadastrado com esse selo.
-            {{/each}}
-        </ul>
-    </div>
+    <div class="row">
+	
+	    <div id="people-list" class="span8">
+	    	
+	        <ul>
+	            {{#each list}}
+	                <li>
+	                {{#with profile owner}}
+	                    <a href="https://www.facebook.com/{{this.uid}}" target="_blank"><h2><img src="http://graph.facebook.com/{{this.uid}}/picture?type=square" />{{this.name}}</h2></a>
+	                    <p>Estado: {{this.state}} - Cidade: {{this.city}}</p>
+	                {{/with}}
+	                <p>Tem os selos: {{numbers}}</p>
+	                </li>
+	            {{else}}
+	                Ninguém cadastrado com esse selo.
+	            {{/each}}
+	        </ul>
+	    </div>
+	</div>
 </template>

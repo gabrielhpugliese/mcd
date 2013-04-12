@@ -5,11 +5,13 @@ Template.profile.rendered = function () {
     var profile = Profiles.findOne({ owner : Meteor.userId() });
     
     new dgCidadesEstados({
-        estado: document.getElementById('state'),
-        cidade: document.getElementById('city'),
+        estado: $('#my-locale .state').get(0),
+        cidade: $('#my-locale .city').get(0),
         estadoVal : profile.state,
         cidadeVal : profile.city
     });
+    
+    // Session.set('filters', { state : profile.state, city : profile.city });
 }
 
 Template.profile.numbers = function () {
@@ -51,8 +53,8 @@ Template.profile.events({
     },
     'click #save_location' : function (event) {
         event.preventDefault();
-        var state = $('#state').val(),
-            city = $('#city').val();
+        var state = $('#my-locale .state').val(),
+            city = $('#my-locale .city').val();
             
         Meteor.call('save_profile', state, city, function (error, result) {
             if (error)

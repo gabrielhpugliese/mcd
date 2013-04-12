@@ -3,11 +3,34 @@ Template.people.profile = function (userId) {
 }
 
 Template.people.list = function () {
-    return Numbers.find({
-        numbers : { $in : Session.get('search_numbers') },
-        owner : { $not : Meteor.userId() }
-    });
+    var query = {
+            numbers : { $in : Session.get('search_numbers') },
+            // owner : { $not : Meteor.userId() }
+        },
+        filters = Session.get('filters');
+    
+    if ( filters ) {
+        query['state'] = filters.state;
+        query['city'] = filters.city;     
+    }
+    
+    return Numbers.find(query);
 }
+
+Deps.autorun(function () {
+    var filters = Session.get('filters');
+    
+    if ( filters ) {
+        window.onload = function() {
+            new dgCidadesEstados({
+                estado: $('#locale-filter .state').get(0),
+                cidade: $('#locale-filter .city').get(0),
+                estadoVal : filters.state,
+                cidadeVal : filters.city
+            });
+        }
+    } 
+});
 
 Template.people.events({
     'click #search button' : function (event) {
@@ -18,6 +41,28 @@ Template.people.events({
         });
 
         Session.set('search_numbers', numbers);
-    }
+    },
+    'click #apply_filter' : function (event) {
+        event.preventDefault();
+        var state = $('#locale-filter .state').val(),
+            city = $('#locale-filter .city').val();
+        
+        Session.set('filters', { state : state , city : city });
+    },
+    // 'click #remove_filter' : function (event) {
+        // event.preventDefault();
+//         
+        // $('#remove_filter').hide();
+        // $('#restore_filter').show();
+        // Session.set('filters', {});
+    // },
+    // 'click #restore_filter' : function (event) {
+        // event.preventDefault();
+//         
+        // var profile = Profiles.findOne({ owner : Meteor.userId() });
+        // Session.set('filters', { state : profile.state, city : profile.city });
+        // $('#restore_filter').hide();
+        // $('#remove_filter').show();
+    // },
 });
 
