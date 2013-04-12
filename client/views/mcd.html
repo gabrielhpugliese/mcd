@@ -15,17 +15,17 @@
 <body>
     <div class="container">
         {{> template}}
-        
+
         <div class="alert alert-success" style="display: none;">
-		  <button type="button" class="close" data-dismiss="alert">&times;</button>
-		  <p></p>
+		    <button type="button" class="close" data-dismiss="alert">&times;</button>
+		    <p></p>
 		</div>
 		<div class="row">
 			<div class="span8 center">
 		        {{#constant}}
 				<iframe src="/bidvertiser.html" style="width: 100%; overflow: hidden;" frameborder="0" scrolling="no"></iframe>
 				{{/constant}}
-				
+
 		        {{#if currentUser}}
 		        {{> profile}}
 		        <hr/>
@@ -51,7 +51,11 @@
     <div class="navbar" id="top-navbar">
         <div class="navbar-inner">
             <a class="brand" href="#"> Troque selos do MCD</a>
-            <ul class="nav"></ul>
+            <ul class="nav">
+                <li>
+                    <a id="contact" href="#"> Contato</a>
+                </li>
+            </ul>
             <ul class="nav pull-right">
                 <li>
                     {{loginButtons}}
@@ -63,7 +67,7 @@
 
 <template name="profile">
 	<div class="row">
-		
+
 	    <div class="span4">
 	        <h1>
 	            Meus selos
@@ -87,10 +91,10 @@
 				<div class="control-group">
 				  <label class="control-label">Meu estado:</label>
 				  <div class="controls">
-				    <select class="state" name="state"></select> 
+				    <select class="state" name="state"></select>
 				  </div>
 				</div>
-				
+
 				<div class="control-group">
 				  <label class="control-label">Minha cidade:</label>
 				  <div class="controls">
@@ -102,10 +106,10 @@
 				    <button id="save_location" name="save_location" class="btn btn-primary">Salvar</button>
 				  </div>
 				</div>
-				
+
 				</fieldset>
 			</form>
-	
+
 	    </div>
 	</div>
 </template>
@@ -129,10 +133,10 @@
                 <div class="control-group">
                   <label class="control-label">Estado:</label>
                   <div class="controls">
-                    <select class="state" name="state"></select> 
+                    <select class="state" name="state"></select>
                   </div>
                 </div>
-                
+
                 <div class="control-group">
                   <label class="control-label">Cidade:</label>
                   <div class="controls">
@@ -146,15 +150,15 @@
                   	<button id="restore_filter" class="btn btn-success" style="display: none;">Restaurar filtros</button>
                   </div>
                 </div>
-                
+
                 </fieldset>
             </form>
 	    </div> -->
     </div>
     <div class="row">
-	
+
 	    <div id="people-list" class="span8">
-	    	
+
 	        <ul>
 	            {{#each list}}
 	                <li id="{{owner}}">
@@ -172,21 +176,21 @@
 	        </ul>
 	    </div>
 	</div>
-	
+
 	<div id="betaModal" class="modal hide fade">
 	    <div class="modal-header">
 	            <button class="close" data-dismiss="modal">×</button>
-	            <h3>Envie uma mensagem (beta)</h3>
+	            <h3>Envie uma mensagem</h3>
 	    </div>
 		<div class="modal-body">
 		    <div class="row-fluid">
 		        <div class="span12">
-		            <div class="span10">
+		            <div class="span9">
 		            <div class="logowrapper">
 		                <textarea cols="30" rows="15" style="width: 95%;"></textarea>
 		            </div>
 		            </div>
-		            <div class="span2">
+		            <div class="span3">
 		                <form class="form-horizontal">
 		                    <div class="help-block">
 		                        <button type="submit" class="btn btn-large btn-info">Enviar</button>
@@ -197,6 +201,7 @@
 		    </div>
 		</div>
 	    <div class="modal-footer">
+	        <i>Nota: seu e-mail será divulgado junto com a mensagem.</i>
 	    </div>
 	</div>
 </template>
