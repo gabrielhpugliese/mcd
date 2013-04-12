@@ -32,7 +32,7 @@ Meteor.methods({
             });
     },
     'send_msg' : function (userId, msg) {
-        var sender = Meteor.users.findOne(Meteor.userId()),
+        var sender = Meteor.user(),
             receipt = Meteor.users.findOne(userId);
         
         console.log(sender)

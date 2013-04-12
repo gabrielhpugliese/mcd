@@ -49,7 +49,7 @@ Template.people.events({
         
         Session.set('filters', { state : state , city : city });
     },
-    'click #send-msg' : function (event) {
+    'click .send-msg' : function (event) {
         var $self = $(event.target),
             userId = $self.parent().attr('id');
         
