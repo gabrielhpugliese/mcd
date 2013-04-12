@@ -31,14 +31,21 @@
 		        <hr/>
 		        {{> people}}
 		        {{else}}
-		        <div class="hero-unit">
-		            <p>Utilizando este site você pode procurar por pessoas que tenham o selo que você precisa e compartilhar seus selos.</p>
-		        </div>
+		        {{> index}}
 		        {{/if}}
 			</div>
 		</div>
     </div>
 </body>
+
+<template name="index">
+    <div class="hero-unit" style="text-align: center;">
+        <h1>Troque selos do MCD facilmente!</h1>
+        <p>Utilizando este site você pode procurar por pessoas que tenham o selo que você precisa e compartilhar seus selos.
+            Faça login com sua conta do Facebook para que assim fique fácil de manter contato com as pessoas.</p>
+            <a id="fb-login" class="btn btn-primary btn-large" href="#">Login com o Facebook</a>
+    </div>
+</template>
 
 <template name="template">
     <div class="navbar" id="top-navbar">
